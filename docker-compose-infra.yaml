@@ -1,0 +1,35 @@
+version: "3.8"
+
+networks:
+  dev-shared-network:
+    name: dev-shared-network
+    driver: bridge
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+      POSTGRES_DB: devdb
+    ports:
+      - "5400:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dev-shared-network
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6300:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - dev-shared-network
+
+volumes:
+  pgdata:
+  redisdata:

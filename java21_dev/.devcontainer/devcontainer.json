@@ -1,0 +1,32 @@
+{
+  "name": "java-dev",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "dev_java",
+  "workspaceFolder": "/workspaces",
+  "remoteUser": "ubuntu",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "pivotal.vscode-spring-boot",
+        "vmware.vscode-spring-boot-dashboard",
+        "vscjava.vscode-spring-initializr",
+        "gabrielbb.vscode-lombok",
+        "ms-ossdata.vscode-postgresql",
+        "qwtel.redis-viewer",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-azuretools.vscode-docker",
+        "ms-vsliveshare.vsliveshare",
+        "visualstudioexptteam.vscodeintellicode",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "humao.rest-client"
+      ]
+    }
+  },
+  "features": {
+  }
+}

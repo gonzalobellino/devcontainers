@@ -1,0 +1,32 @@
+{
+    "name": "dev_golang",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "dev_golang",
+    "workspaceFolder": "/workspaces",
+    "remoteUser": "dev",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "golang.go",
+          "ms-ossdata.vscode-postgresql",
+          "ms-azuretools.vscode-docker",
+          "qwtel.redis-viewer",
+          "cweijan.vscode-database-client2",
+          "github.copilot",
+          "github.copilot-chat",
+          "ms-vsliveshare.vsliveshare",
+          "dbaeumer.vscode-eslint",
+          "esbenp.prettier-vscode",
+          "visualstudioexptteam.vscodeintellicode",
+          "humao.rest-client"
+        ]
+      }
+    },
+    "features": {
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/devcontainers/features/docker-cli:1": {},
+      "ghcr.io/devcontainers/features/postgres-cli:1": {},
+      "ghcr.io/devcontainers/features/redis-cli:1": {}
+    }
+  }
+  
