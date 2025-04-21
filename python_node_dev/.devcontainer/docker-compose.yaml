@@ -1,0 +1,22 @@
+networks:
+  dev-shared-network:
+    external: true
+
+services:
+  dev_python_ai_node:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ../develop:/workspaces
+      - ../develop/vectorstore:/workspaces/vectorstore
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.gitconfig:/home/node/.gitconfig:ro
+      - ~/.ssh:/home/node/.ssh:ro
+      
+    command: sleep infinity
+    environment:
+      - PYTHONUNBUFFERED=1
+    user: node
+    networks:
+      - dev-shared-network      

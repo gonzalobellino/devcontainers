@@ -1,0 +1,68 @@
+{
+  "name": "dev_python_ai_node",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "dev_python_ai_node",
+  "workspaceFolder": "/workspaces",
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Node.js, Docker, Copilot y otros útiles
+        "afractal.node-essentials",
+        "be5invis.vscode-icontheme-nomo-dark",
+        "bengreenier.vscode-node-readme",
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "dbaeumer.vscode-eslint",
+        "docker.docker",
+        "donjayamanne.githistory",
+        "dotjoshjohnson.xml",
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-pull-request-github",
+        "idered.npm",
+        "inferrinizzard.prettier-sql-vscode",
+        "jasonnutter.search-node-modules",
+        "leizongmin.node-module-intellisense",
+        "mikestead.dotenv",
+        "miramac.vscode-exec-node",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-vscode.js-debug-nightly",
+        "ms-vsliveshare.vsliveshare",
+        "orta.vscode-jest",
+        "pflannery.vscode-versionlens",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "swellaby.node-pack",
+        "visualstudioexptteam.intellicode-api-usage-examples",
+        "visualstudioexptteam.vscodeintellicode",
+        "wix.vscode-import-cost",
+        "xabikos.javascriptsnippets",
+        "yzhang.markdown-all-in-one",
+        "zainchen.json",
+        "ms-ossdata.vscode-postgresql",
+        "qwtel.redis-viewer",
+        "humao.rest-client",
+        "cweijan.vscode-database-client2",
+
+        // Python: IntelliSense, linting, notebooks, testing
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.debugpy",
+        "ms-toolsai.jupyter",
+        "littlefoxteam.vscode-python-test-adapter"
+      ]
+    }
+  },
+  "postCreateCommand": "mkdir -p /workspaces/vectorstore && playwright install",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  }
+}
