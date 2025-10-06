@@ -1,0 +1,17 @@
+networks:
+  dev-shared-network:
+    external: true
+
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ../develop:/workspaces/
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3000:3000"
+    command: sleep infinity
+    networks:
+      - dev-shared-network
