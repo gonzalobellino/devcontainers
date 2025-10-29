@@ -4,6 +4,7 @@ networks:
   dev-shared-network:
     name: dev-shared-network
     driver: bridge
+    external: false
 
 services:
   db:

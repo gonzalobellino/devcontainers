@@ -1,0 +1,14 @@
+{
+    "redisXplorer.config": {
+        "profiles": [
+            {
+                "name": "redis",
+                "host": "localhost",
+                "accessKey": "",
+                "filter": "*",
+                "port": "6300"
+            }
+        ],
+        "scanLimit": 200
+    }
+}
