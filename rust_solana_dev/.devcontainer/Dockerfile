@@ -42,6 +42,8 @@ RUN ~/.cargo/bin/cargo install cargo-edit cargo-watch sccache
 # Instalar Agave/Solana (2.1.x)
 RUN sh -c "$(curl -sSfL ${SOLANA_INSTALL_URL})"
 
+ENV CARGO_BUILD_JOBS=1
+ENV RUSTFLAGS="-C codegen-units=1 -C opt-level=2"
 # AVM desde coral-xyz + preparar directorio
 ENV AVM_HOME=/home/node/.avm
 RUN mkdir -p "$AVM_HOME/bin" 

@@ -3,15 +3,49 @@ networks:
     external: true
 
 services:
-  dev:
+  dev_node:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
+        reservations:
+          cpus: '1'
+          memory: 1G    
     volumes:
       - ../develop:/workspaces/
       - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.gitconfig:/home/node/.gitconfig:ro
+      - ~/.ssh:/home/node/.ssh:ro
+      - ~/.config/gh:/home/node/.config/gh:ro
+      - ./docker-data/claude/.claude.json:/home/node/.claude.json
+      # ── Persistencia para historial de bash ───────────────────────────────
+      - commandhistory:/commandhistory
+
+      # ── Persistencia para agentes CLI y configs ───────────────────────────────
+      - claude-home:/home/node/.claude
+      - codex-home:/home/node/.codex
+      - cursor-home:/home/node/.cursor             # commands globales, hooks, etc.
+      - npm-global:/home/node/.npm-global          # paquetes npm -g
+
     ports:
-      - "3000:3000"
+      - "3000-3040:3000-3040"
+      - "3101-3110:3101-3110"
+      - "3201-3210:3201-3210"
+      - "3301-3310:3301-3310"
+  
     command: sleep infinity
     networks:
       - dev-shared-network  
+
+volumes:
+  # Nuevos volúmenes nombrados → estos sobreviven rebuilds
+  commandhistory:
+  claude-home:
+  codex-home:
+  cursor-home:
+  npm-global:
+  local-bin:

@@ -1,9 +1,18 @@
 {
   "name": "Umbrel Node.js Dev Container",
   "dockerComposeFile": "docker-compose.yaml",
-  "service": "dev",
+  "service": "dev_node",
   "workspaceFolder": "/workspaces/",
   "remoteUser": "node",
+
+  "containerEnv": {
+    "HISTFILE": "/commandhistory/.bash_history",
+    "PROMPT_COMMAND": "history -a",
+    "HISTSIZE": "10000",
+    "HISTFILESIZE": "20000"
+  },
+//  "postCreateCommand": "mkdir -p /commandhistory /home/node/.android /home/node/.gradle && touch /commandhistory/.bash_history",
+//  "postStartCommand": "mkdir -p /commandhistory && touch /commandhistory/.bash_history",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -27,7 +36,6 @@
         "inferrinizzard.prettier-sql-vscode",
         "jasonnutter.search-node-modules",
         "leizongmin.node-module-intellisense",
-        "mikestead.dotenv",
         "miramac.vscode-exec-node",
         "ms-azuretools.vscode-docker",
         "ms-kubernetes-tools.vscode-kubernetes-tools",
@@ -43,16 +51,14 @@
         "wix.vscode-import-cost",
         "xabikos.javascriptsnippets",
         "yzhang.markdown-all-in-one",
-        "zainchen.json",  
+        "zainchen.json",
         "ms-ossdata.vscode-postgresql",
         "qwtel.redis-viewer",
-        "humao.rest-client",    
-        "dbaeumer.vscode-eslint",
+        "humao.rest-client",
         "cweijan.vscode-database-client2"
       ]
     }
   },
- //"postCreateCommand": "",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   }

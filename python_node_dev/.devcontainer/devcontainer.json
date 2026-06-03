@@ -4,10 +4,18 @@
   "service": "dev_python_ai_node",
   "workspaceFolder": "/workspaces",
   "remoteUser": "node",
+
+
+  "containerEnv": {
+    "HISTFILE": "/commandhistory/.bash_history",
+    "PROMPT_COMMAND": "history -a",
+    "HISTSIZE": "10000",
+    "HISTFILESIZE": "20000"
+  },
+
   "customizations": {
     "vscode": {
       "extensions": [
-        // Node.js, Docker, Copilot y otros útiles
         "afractal.node-essentials",
         "be5invis.vscode-icontheme-nomo-dark",
         "bengreenier.vscode-node-readme",
@@ -48,8 +56,6 @@
         "qwtel.redis-viewer",
         "humao.rest-client",
         "cweijan.vscode-database-client2",
-
-        // Python: IntelliSense, linting, notebooks, testing
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ms-python.black-formatter",
@@ -61,7 +67,11 @@
       ]
     }
   },
-  "postCreateCommand": "mkdir -p /workspaces/vectorstore && playwright install",
+
+//  "postCreateCommand": "mkdir -p /commandhistory && touch /commandhistory/.bash_history && chown node:node /commandhistory/.bash_history",
+//"postCreateCommand": "mkdir -p /workspaces/vectorstore /commandhistory && playwright install",
+//"postStartCommand": "mkdir -p /commandhistory && touch /commandhistory/.zsh_history && sudo chown -R node:node /home/node/.config /home/node/.cache /home/node/.local /home/node/.npm /home/node/.npm-global /home/node/.ssh /home/node/.codex /home/node/.claude /home/node/.openai /home/node/.anthropic /home/node/.cursor /commandhistory || true",
+  
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   }
