@@ -1,32 +1,74 @@
 {
-  "name": "java-dev",
+  "name": "java25-dev",
   "dockerComposeFile": "docker-compose.yaml",
   "service": "dev_java",
-  "workspaceFolder": "/workspaces",
+  "workspaceFolder": "/workspaces/",
   "remoteUser": "ubuntu",
+  "shutdownAction": "stopCompose",
+
+  "containerEnv": {
+    "HISTFILE": "/commandhistory/.zsh_history",
+    "HISTSIZE": "10000",
+    "SAVEHIST": "20000",
+    "LANG": "C.UTF-8",
+    "DOCKER_HOST": "unix:///var/run/docker.sock"
+  },
 
   "customizations": {
     "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-25",
+            "path": "/opt/java/openjdk",
+            "default": true
+          }
+        ],
+        "java.jdt.ls.java.home": "/opt/java/openjdk",
+        "maven.executable.path": "/home/ubuntu/.sdkman/candidates/maven/current/bin/mvn",
+        "java.import.gradle.home": "/home/ubuntu/.sdkman/candidates/gradle/current"
+      },
       "extensions": [
         "vscjava.vscode-java-pack",
         "redhat.java",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-maven",
         "pivotal.vscode-spring-boot",
         "vmware.vscode-spring-boot-dashboard",
         "vscjava.vscode-spring-initializr",
         "gabrielbb.vscode-lombok",
+        "SonarSource.sonarlint-vscode",
         "ms-ossdata.vscode-postgresql",
         "qwtel.redis-viewer",
+        "cweijan.vscode-database-client2",
+        "humao.rest-client",
+        "rangav.vscode-thunder-client",
         "github.copilot",
         "github.copilot-chat",
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
         "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
         "ms-vsliveshare.vsliveshare",
         "visualstudioexptteam.vscodeintellicode",
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml",
+        "editorconfig.editorconfig",
         "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "humao.rest-client"
+        "yzhang.markdown-all-in-one",
+        "mikestead.dotenv"
       ]
     }
   },
+
   "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
   }
 }

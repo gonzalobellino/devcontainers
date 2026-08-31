@@ -30,6 +30,7 @@ services:
       - codex-home:/home/node/.codex
       - cursor-home:/home/node/.cursor             # commands globales, hooks, etc.
       - npm-global:/home/node/.npm-global          # paquetes npm -g
+      - ngrok-config:/home/node/.config/ngrok      # authtoken (no compartir con otros containers)
 
     ports:
       - "3000-3040:3000-3040"
@@ -49,3 +50,4 @@ volumes:
   cursor-home:
   npm-global:
   local-bin:
+  ngrok-config:

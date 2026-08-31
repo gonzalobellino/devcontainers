@@ -7,14 +7,70 @@ services:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
+      args:
+        # Debe coincidir con `getent group docker` en el HOST Umbrel
+        DOCKER_GID: ${DOCKER_GID:-987}
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 1G
     volumes:
       - ../develop:/workspaces
       - /var/run/docker.sock:/var/run/docker.sock
-      - ~/.gitconfig:/home/dev/.gitconfig:ro
-      - ~/.ssh:/home/dev/.ssh:ro
+      - ~/.gitconfig:/home/ubuntu/.gitconfig:ro
+      - ~/.ssh:/home/ubuntu/.ssh:ro
+      - ~/.config/gh:/home/ubuntu/.config/gh:ro
+      - ./docker-data/claude/.claude.json:/home/ubuntu/.claude.json
+
+      # Persistencia historial shell
+      - commandhistory:/commandhistory
+
+      # Persistencia agentes CLI y configs
+      - claude-home:/home/ubuntu/.claude
+      - codex-home:/home/ubuntu/.codex
+      - cursor-home:/home/ubuntu/.cursor
+      - opencode-home:/home/ubuntu/.opencode
+
+      # Caches build Java (sobreviven rebuilds)
+      - m2-cache:/home/ubuntu/.m2
+      - gradle-cache:/home/ubuntu/.gradle
+
+      # kubeconfig local (kind/k3d)
+      - kube-config:/home/ubuntu/.kube
+
+      # ngrok authtoken (volumen propio; no compartir con node20)
+      - ngrok-config:/home/ubuntu/.config/ngrok
+
+    # Rango libre vs otros containers:
+    # node: 3000-3040, 3101-3110, 3201-3210, 3301-3310
+    # python: 4000-4010, 5000-5010
+    # rust: 4000
+    # java: 8080-8089 (Spring Boot / apps / debug proxy)
+    ports:
+      - "8080-8089:8080-8089"
+
     command: sleep infinity
     environment:
       - LANG=C.UTF-8
+      - DOCKER_HOST=unix:///var/run/docker.sock
     user: ubuntu
+    # Supplementary group = GID docker del HOST (DooD via sock)
+    group_add:
+      - "${DOCKER_GID:-987}"
     networks:
       - dev-shared-network
+
+volumes:
+  commandhistory:
+  claude-home:
+  codex-home:
+  cursor-home:
+  opencode-home:
+  m2-cache:
+  gradle-cache:
+  kube-config:
+  ngrok-config:
