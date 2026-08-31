@@ -45,6 +45,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+# ngrok agent
+RUN curl -fsSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+      | gpg --dearmor -o /usr/share/keyrings/ngrok-archive-keyring.gpg \
+ && echo "deb [signed-by=/usr/share/keyrings/ngrok-archive-keyring.gpg] https://ngrok-agent.s3.amazonaws.com bookworm main" \
+      > /etc/apt/sources.list.d/ngrok.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends ngrok \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# GitHub CLI
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+      | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+ && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+ && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+      > /etc/apt/sources.list.d/github-cli.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends gh \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
 # Corepack para yarn/pnpm
 RUN corepack enable \
  && corepack prepare yarn@stable --activate \
@@ -72,7 +93,7 @@ RUN groupadd -f docker && usermod -aG docker node
 RUN mkdir -p \
     /home/node/.android \
     /home/node/.cache \
-    /home/node/.config \
+    /home/node/.config/ngrok \
     /home/node/.local/share \
     /home/node/.local/bin \
     /home/node/.npm-global \
@@ -88,7 +109,8 @@ RUN mkdir -p \
     /home/node/.claude \
     /home/node/.codex \
     /home/node/.cursor \
-    ${ANDROID_HOME}
+    ${ANDROID_HOME} \
+ && chmod 700 /home/node/.config/ngrok
 
 RUN mkdir -p /home/node/.local/share/pnpm \
  && chown -R node:node /home/node/.local/share
@@ -132,7 +154,10 @@ RUN node -v && \
     codex --version && \
     claude --version && \
     agent --help >/dev/null && \
-    eas --version
+    eas --version && \
+    ngrok version && \
+    gh --version && \
+    vercel --version
 
 WORKDIR /workspaces/
 CMD ["sleep", "infinity"]

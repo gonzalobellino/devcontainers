@@ -7,7 +7,29 @@ ENV USER=dev
 # Instalar herramientas útiles
 RUN apt-get update && apt-get install -y \
   sudo locales zsh postgresql-client redis-tools docker.io vim wget unzip \
+  curl gnupg ca-certificates jq xz-utils \
   && rm -rf /var/lib/apt/lists/*
+
+# GitHub CLI
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+      | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+ && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+ && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+      > /etc/apt/sources.list.d/github-cli.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends gh \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# Node.js LTS (para Vercel CLI)
+RUN ARCH=$(dpkg --print-architecture) \
+ && case "$ARCH" in amd64) NODE_ARCH=x64 ;; arm64) NODE_ARCH=arm64 ;; *) NODE_ARCH=$ARCH ;; esac \
+ && NODE_VERSION=$(curl -fsSL https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version') \
+ && curl -fsSL "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz" \
+      | tar -xJ -C /usr/local --strip-components=1 \
+ && node -v && npm -v \
+ && npm install -g vercel@latest \
+ && vercel --version
 
 # Localización
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen

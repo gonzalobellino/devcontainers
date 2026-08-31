@@ -39,7 +39,7 @@
       ]
     }
   },
-  "postCreateCommand": "node -v && npm -v && rustc -V && cargo -V && solana --version || agave --version && avm --version && anchor --version",
+  "postCreateCommand": "node -v && npm -v && rustc -V && cargo -V && (solana --version || agave --version) && avm --version && anchor --version && gh --version && vercel --version",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   }
